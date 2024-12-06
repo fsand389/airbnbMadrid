@@ -33,3 +33,22 @@ else:
     mydb = database["TheDatabase"]
     collection = mydb["listings"]
     
+
+
+#queries work 
+
+# Query 1: Display exactly three documents with cleaner formatting
+print("\nQuery 1: Displaying three documents from the listings collection\n")
+query1 = collection.find({}, {"_id": 0, "name": 1, "beds": 1, "neighbourhood_group_cleansed": 1}).limit(3)
+
+for i, document in enumerate(query1, start=1):
+    print(f"Document {i}:")
+    print(f"  Name: {document.get('name', 'N/A')}")
+    print(f"  Beds: {document.get('beds', 'N/A')}")
+    print(f"  Neighbourhood: {document.get('neighbourhood_group_cleansed', 'N/A')}")
+    print("\n" + "-" * 40)  # Add a separator for clarity
+
+
+
+
+
