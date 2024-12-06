@@ -61,3 +61,27 @@ for i, document in enumerate(query2, start=1):
     print("\n" + "-" * 40)  # Add a separator for clarity
 
 
+
+# Query 3: Find Listings by Superhosts
+print("\nQuery 3: Listings by Superhosts\n")
+
+# Step 1: Find two superhost IDs
+query3 = collection.find({'host_is_superhost': 't'}, {'_id': 0, 'host_id': 1}).limit(2)
+superhost_ids = [host['host_id'] for host in query3]
+
+# Step 2: Fetch listings for each superhost
+for i, host_id in enumerate(superhost_ids, start=1):
+    print(f"\nSuperhost {i} (Host ID: {host_id}):\n")
+    listings = collection.find({'host_id': host_id}, {"_id": 0, "name": 1, "beds": 1, "neighbourhood_group_cleansed": 1, "review_scores_rating": 1})
+    
+    for j, listing in enumerate(listings, start=1):
+        print(f"  Listing {j}:")
+        print(f"    Name: {listing.get('name', 'N/A')}")
+        print(f"    Beds: {listing.get('beds', 'N/A')}")
+        print(f"    Neighbourhood: {listing.get('neighbourhood_group_cleansed', 'N/A')}")
+        print(f"    Review Score: {listing.get('review_scores_rating', 'N/A')}")
+    print("\n" + "-" * 50)  # Separator for clarity
+
+
+
+
