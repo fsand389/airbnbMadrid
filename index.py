@@ -140,5 +140,30 @@ for i, host in enumerate(query6, start=1):
     print(f"  Total Listings: {host['total_listings']}")
     print("\n" + "-" * 50)
 
+# Query 7: Calculate the average review score for each neighborhood
+print("\nQuery 7: Average Review Scores by Neighborhood\n")
+
+# Use MongoDB's aggregation framework to calculate the average review score
+query7 = collection.aggregate([
+    {"$group": {"_id": "$neighbourhood_group_cleansed", "average_review_score": {"$avg": "$review_scores_rating"}}},  # Group by neighborhood and calculate the average
+    {"$sort": {"average_review_score": -1}},  # Sort by average review score in descending order
+    {"$limit": 10}  # Limit to top 10 neighborhoods
+])
+
+# Display the results
+print("Top 10 Neighborhoods by Average Review Scores:\n")
+for i, neighborhood in enumerate(query7, start=1):
+    average_score = neighborhood.get('average_review_score', None)
+    if average_score is not None:  # Only process neighborhoods with a valid score
+        print(f"Neighborhood {i}:")
+        print(f"  Name: {neighborhood['_id']}")
+        print(f"  Average Review Score: {round(average_score, 2)}")
+        print("\n" + "-" * 50)
+    else:
+        print(f"Neighborhood {i}:")
+        print(f"  Name: {neighborhood['_id']}")
+        print(f"  Average Review Score: No data available")
+        print("\n" + "-" * 50)
+
 
 
