@@ -96,6 +96,29 @@ for i, host_name in enumerate(query4, start=1):
         print("\n" + "-" * 50)
 
 
+# Query 5: Find listings with more than 2 beds in a specific neighborhood
+print("\nQuery 5: Listings with more than 2 beds in a specific neighborhood\n")
+
+# Define the neighborhood of interest
+neighbourhood = "Chamartín"  # Replace with desired neighborhood
+
+# Retrieve listings with >2 beds in the specified neighborhood, sorted by review score
+query5 = collection.find(
+    {
+        "beds": {"$gt": 2},
+        "neighbourhood_group_cleansed": neighbourhood
+    },
+    {"_id": 0, "name": 1, "beds": 1, "review_scores_rating": 1}
+).sort("review_scores_rating", -1)
+
+# Display the results
+print(f"Listings with more than 2 beds in '{neighbourhood}', sorted by review_scores_rating:\n")
+for i, listing in enumerate(query5, start=1):
+    print(f"Listing {i}:")
+    print(f"  Name: {listing.get('name', 'N/A')}")
+    print(f"  Beds: {listing.get('beds', 'N/A')}")
+    print(f"  Review Score: {listing.get('review_scores_rating', 'N/A')}")
+    print("\n" + "-" * 50)
 
 
 
