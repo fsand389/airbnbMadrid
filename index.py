@@ -122,3 +122,23 @@ for i, listing in enumerate(query5, start=1):
 
 
 
+# Query 6: Count the number of listings per host
+print("\nQuery 6: Number of Listings per Host\n")
+
+# Use MongoDB's aggregation framework to count listings per host
+query6 = collection.aggregate([
+    {"$group": {"_id": "$host_name", "total_listings": {"$sum": 1}}},  # Group by host_name and count listings
+    {"$sort": {"total_listings": -1}},  # Sort by total_listings in descending order
+    {"$limit": 10}  # Limit the result to the top 10 hosts for display
+])
+
+# Display the results
+print("Top 10 Hosts by Number of Listings:\n")
+for i, host in enumerate(query6, start=1):
+    print(f"Host {i}:")
+    print(f"  Name: {host['_id']}")
+    print(f"  Total Listings: {host['total_listings']}")
+    print("\n" + "-" * 50)
+
+
+
