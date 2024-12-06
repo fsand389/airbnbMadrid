@@ -83,5 +83,19 @@ for i, host_id in enumerate(superhost_ids, start=1):
     print("\n" + "-" * 50)  # Separator for clarity
 
 
+# Query 4: Find and display unique host names
+print("\nQuery 4: Unique Host Names\n")
+
+# Retrieve all unique host names
+query4 = collection.distinct("host_name")
+
+# Group and display the unique host names
+for i, host_name in enumerate(query4, start=1):
+    print(f"Host {i}: {host_name}")
+    if i % 10 == 0:  # Add a separator after every 10 host names for better readability
+        print("\n" + "-" * 50)
+
+
+
 
 
