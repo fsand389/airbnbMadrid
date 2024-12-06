@@ -49,6 +49,15 @@ for i, document in enumerate(query1, start=1):
     print("\n" + "-" * 40)  # Add a separator for clarity
 
 
+# Query 2: Display exactly ten documents with cleaner formatting
+print("\nQuery 2: Displaying ten documents from the listings collection\n")
+query2 = collection.find({}, {"_id": 0, "name": 1, "beds": 1, "neighbourhood_group_cleansed": 1}).limit(10)
 
+for i, document in enumerate(query2, start=1):
+    print(f"Document {i}:")
+    print(f"  Name: {document.get('name', 'N/A')}")
+    print(f"  Beds: {document.get('beds', 'N/A')}")
+    print(f"  Neighbourhood: {document.get('neighbourhood_group_cleansed', 'N/A')}")
+    print("\n" + "-" * 40)  # Add a separator for clarity
 
 
